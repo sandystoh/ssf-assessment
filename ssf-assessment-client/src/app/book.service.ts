@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SearchCriteria, BooksResponse, BookResponse } from './models';
+import { SearchCriteria, BooksResponse, BookResponse, ReviewResponse } from './models';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../environments/environment';
 
@@ -19,7 +19,10 @@ export class BookService {
   }
 
   getBook(bookId: string): Promise<BookResponse> {
-    // TODO - for Task 5
-    return (null);
+    return this.http.get<BookResponse>(API_URL + 'book/' + bookId).toPromise();
+  }
+
+  getReview(bookId: string): Promise<ReviewResponse> {
+    return this.http.get<ReviewResponse>(API_URL + 'book/' + bookId + '/review').toPromise();
   }
 }

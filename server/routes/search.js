@@ -22,7 +22,7 @@ module.exports = function(app, API_URL) {
                     // BooksResponse Object
                     data: r0.map(v => {
                         // Removes author names that are duplicated in DB e.g. for "Love and Ruin"
-                        v.authors = Array.from(new Set(v.authors.split('|')));
+                        v.authors = (Array.from(new Set(v.authors.split('|'))));
                         // un-comment below to not remove duplicates
                         // v.authors = v.authors.split('|');
                         return v;
@@ -35,7 +35,11 @@ module.exports = function(app, API_URL) {
                 })
             })
             .catch(error => {
-                resp.status(500).json({message: error});
+                resp.status(500).json({
+                    status: 500,
+                    message: error,
+                    timestamp: (new Date()).getTime()
+                });
             });
     });
 

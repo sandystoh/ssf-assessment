@@ -10,17 +10,22 @@ import { AppComponent } from './app.component';
 import { SearchComponent } from './components/search.component';
 import { BookListComponent } from './components/book-list.component';
 import { BookService } from './book.service';
+import { BookDetailComponent } from './components/book-detail.component';
+import { MaterialModule } from './material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchComponent,
-    BookListComponent
+    BookListComponent,
+    BookDetailComponent
   ],
   imports: [
     BrowserModule, HttpClientModule,
     RouterModule, FormsModule,
-    AppRouteModule
+    AppRouteModule,
+    MaterialModule, FlexLayoutModule
   ],
   providers: [ BookService ],
   bootstrap: [ AppComponent ]

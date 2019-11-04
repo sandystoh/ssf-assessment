@@ -40,7 +40,7 @@ export class BookListComponent implements OnInit {
         this.books = result;
       }).catch(error => {
         const errorResponse = error as ErrorResponse;
-        alert(`Status: ${errorResponse.status}\nMessage: ${errorResponse.message}`)
+        alert(`Status: ${errorResponse.status}\nMessage: ${errorResponse.message}`);
       });
   }
 
@@ -65,8 +65,8 @@ export class BookListComponent implements OnInit {
   }
 
   bookDetails(bookId: string) {
-    // TODO
     console.log('Book id: ', bookId);
+    this.router.navigate(['/book/' + bookId]);
   }
 
   back() {

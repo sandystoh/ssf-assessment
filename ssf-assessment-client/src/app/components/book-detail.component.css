@@ -1,0 +1,55 @@
+.mat-card {
+    max-width: 85vw;
+    text-align: center;
+    margin: auto;
+}
+
+.book-image {
+    max-width: 250px;
+    text-align: center;
+}
+
+.book-image-container{
+    margin: 10px;
+    text-align: center;
+    width: 100%;
+}
+
+.book-description{
+    margin-left: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.review-card{
+    width: 75vw;
+    cursor: pointer;
+    margin: auto;
+}
+
+.review-card:hover{
+    background-color: lightblue;
+}
+
+a {
+    text-decoration: none;
+}
+
+.genres {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.button-area {
+    height: 50px;
+}
+
+::ng-deep .mat-chip-list-wrapper {
+    display: inline-block !important;
+}
+
+@media only screen and (max-width: 450px) {
+    .detail-area {
+      padding-bottom: 200px;
+    }
+  }

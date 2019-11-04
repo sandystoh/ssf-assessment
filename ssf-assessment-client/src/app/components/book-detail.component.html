@@ -1,0 +1,55 @@
+<div class="detail-area">
+    <div class="button-area">
+            <button mat-raised-button color="accent" [routerLink]="['/']">Home</button>
+    </div>
+        <div *ngIf="isLoading">
+                <mat-card fxLayout="column" fxLayoutAlign="center center">
+                    <mat-spinner
+                        color="accent">
+                    </mat-spinner>
+                    <h3> Loading please wait!</h3>
+            </mat-card>
+        </div>
+        <mat-card *ngIf="b && !isLoading">
+                <div fxLayout="row column">
+                    <div class="book-image-container"><img [src]="b.image_url" alt="Book Image" class="book-image"></div>
+                <div class="book-description">
+                    <div class="book">
+                    <h2>{{b.title}}</h2>
+                    <h3>By: {{b.authors.join(', ')}}</h3>
+                    <h4>{{b.format}} | {{b.pages}} pages</h4>
+                    <h4>Rating: {{b.rating}} ({{b.rating_count}} ratings)</h4>
+                    <div class="genres"><h3>Genres</h3>
+                        <mat-chip-list aria-label="Genres">
+                                <mat-chip *ngFor="let g of b.genres" color="accent">{{g}}</mat-chip>
+                        </mat-chip-list>
+                    </div>
+                    <h3>Description</h3>
+                    <p>{{b.description}}</p>
+                </div>
+                </div>
+                </div>
+                <h3>Reviews</h3>
+                <div *ngIf="b && reviews">
+                    <div class="center" *ngFor="let r of reviews">
+                        <a [href] = "r.url">
+                        <mat-card class="review-card">
+                                <mat-card-title>New York Times</mat-card-title>
+                                <mat-card-subtitle>{{r.byline}}</mat-card-subtitle>
+                                <mat-card-content>{{r.summary}}</mat-card-content>
+                        </mat-card>
+                        </a>
+                    </div>
+                </div>
+                <div *ngIf="b && reviews.length == 0">
+                        <div class="center">
+                        <mat-card class="review-card">
+                                <mat-card-title>New York Times</mat-card-title>
+                                <mat-card-subtitle>The NYT has no reviews found for this title</mat-card-subtitle>
+                        </mat-card>
+                        </div>
+                </div>
+        </mat-card>
+</div>
+
+
