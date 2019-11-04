@@ -68,8 +68,9 @@ module.exports = function(app, API_URL) {
                     // https://api.nytimes.com/svc/books/v3/reviews.json?api-key=${TIMES_API_KEY}&title=${title}
                     request.get({url: TIMES_URL, qs:params}, (error, response, body) => { 
                         if (error) 
-                            resp.status(404).json({
-                                status: 404,
+                            // TIMES API error
+                            resp.status(500).json({
+                                status: 500,
                                 message: error,
                                 timestamp: TIME
                             });
