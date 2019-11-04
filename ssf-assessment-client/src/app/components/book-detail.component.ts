@@ -25,16 +25,20 @@ export class BookDetailComponent implements OnInit {
     this.isLoading = true;
     this.route.params.subscribe(params => {
       this.bookId = params.id;
-      console.log('Book ID inside Detail:', this.bookId);
       this.bookSvc.getBook(this.bookId).then(r => {
         this.book = r as BookResponse;
         this.b = this.book.data;
-      });
-      this.bookSvc.getReview(this.bookId).then( v => {
-        this.review = v as ReviewResponse;
-        this.reviews = this.review.data;
+      }).then(() => {
+        this.bookSvc.getReview(this.bookId).then( v => {
+          this.review = v as ReviewResponse;
+          this.reviews = this.review.data;
+          this.isLoading = false;
+        });
+      }).catch (e => {
+        console.log('error: ', e);
         this.isLoading = false;
       });
+
     });
   }
 

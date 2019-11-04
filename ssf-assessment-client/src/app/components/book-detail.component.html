@@ -10,6 +10,13 @@
                     <h3> Loading please wait!</h3>
             </mat-card>
         </div>
+        <div *ngIf="!isLoading && !b">
+            <mat-card class="error-card">
+                    <img src = "assets/images/coffee-icon.png" width="150px">
+                    <h3>Sorry we've encountered an error!</h3>
+                    <h4>Have some coffee and <a [routerLink]="['/']">return home</a> to try again in a few minutes!</h4>
+            </mat-card>
+        </div>
         <mat-card *ngIf="b && !isLoading">
                 <div fxLayout="row column">
                     <div class="book-image-container"><img [src]="b.image_url" alt="Book Image" class="book-image"></div>
@@ -43,7 +50,7 @@
                 </div>
                 <div *ngIf="b && reviews.length == 0">
                         <div class="center">
-                        <mat-card class="review-card">
+                        <mat-card class="missing-card">
                                 <mat-card-title>New York Times</mat-card-title>
                                 <mat-card-subtitle>The NYT has no reviews found for this title</mat-card-subtitle>
                         </mat-card>

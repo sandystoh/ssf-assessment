@@ -53,6 +53,7 @@ export class BookListComponent implements OnInit {
     if ((this.offset + this.limit) >= this.books.total) {
       console.log('Error: No more books to get!');
       alert('Error: No more books to get!');
+      // If allowed to change html: would add a flag to hide/disable next button so this condition would not occur
     } else {
       this.offset += this.limit;
       this.getBooks();
@@ -63,6 +64,7 @@ export class BookListComponent implements OnInit {
     if ((this.offset - this.limit) < 0) {
       console.log('Error: Already at first page!');
       alert('Error: Already at first page!');
+      // If allowed to change html: would hide/disable previous button if this.offset <= 0 so this condition would not occur
     } else {
       this.offset -= this.limit;
       this.getBooks();

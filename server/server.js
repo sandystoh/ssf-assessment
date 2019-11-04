@@ -18,6 +18,10 @@ require('./routes/search')(app, API_URL);
 // Please see routes/books.js for /book API
 require('./routes/books')(app, API_URL);
 
+// Config:
+// db config for pool should be located in server/db/config.js
+// NYTIMES API KEY is in server/.env as TIMES_API_KEY
+
 app.use((req, resp) => {
     resp.status(404).type('text/html')
     .json({message: `Not found: ${req.originalUrl}`});
