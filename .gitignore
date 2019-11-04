@@ -1,0 +1,7 @@
+server/db/config.js
+server/node_modules
+server/package-lock.json
+server/.env
+
+ssf-assessment-client/node_modules.js
+ssf-assessment-client/package-lock.json
