@@ -14,7 +14,7 @@ export class BookListComponent implements OnInit {
   offset = 0;
   terms = '';
 
-  // Added Code for Pagination Console Display only
+  // Added Variable for Pagination Console Display only
   top = 0;
 
   books: BooksResponse = null;
@@ -30,6 +30,11 @@ export class BookListComponent implements OnInit {
 
     this.terms = state.terms;
     this.limit = state.limit || 10;
+
+    // fix for: this.limit was getting parsed as a string
+    if (typeof(this.limit) !== 'number') {
+      this.limit = Number(this.limit);
+    }
 
     const searchCriterial: SearchCriteria = {
       terms: this.terms,
@@ -73,7 +78,7 @@ export class BookListComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
-  // Added Code for pagination reuse
+  // Added Code for Service call reuse in pagination
   getBooks() {
     const searchCriteria2: SearchCriteria = {
       terms: this.terms,
@@ -83,19 +88,19 @@ export class BookListComponent implements OnInit {
     this.bookSvc.getBooks(searchCriteria2)
       .then(result => {
         this.books = result;
-        console.log((this.offset + 1 ) + ' to ' + this.getTop() + ' of ' + this.books.total + ' Books');
+        console.log((+this.offset + 1 ) + ' to ' + this.getTop() + ' of ' + this.books.total + ' Books');
       }).catch(error => {
         const errorResponse = error as ErrorResponse;
         alert(`Status: ${errorResponse.status}\nMessage: ${errorResponse.message}`);
       });
   }
 
-  // Added code for Console Pagination display purposes only
+  // Added code for Console display purposes only (Pagination progress)
   getTop() {
-    if ((this.offset + this.limit) >= this.books.total) {
+    if ((+this.offset + +this.limit) >= this.books.total) {
       return this.books.total;
     } else {
-      return (this.offset + this.limit);
+      return (+this.offset + +this.limit);
     }
   }
 

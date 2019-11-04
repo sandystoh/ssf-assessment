@@ -13,6 +13,7 @@ import { BookService } from './book.service';
 import { BookDetailComponent } from './components/book-detail.component';
 import { MaterialModule } from './material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     BrowserModule, HttpClientModule,
     RouterModule, FormsModule,
     AppRouteModule,
-    MaterialModule, FlexLayoutModule
+    MaterialModule, FlexLayoutModule, BrowserAnimationsModule
   ],
   providers: [ BookService ],
   bootstrap: [ AppComponent ]

@@ -72,7 +72,7 @@ module.exports = function(app, API_URL) {
                                 timestamp: TIME
                             });
                         const rev = (JSON.parse(body));
-                        console.log(rev);
+                        // console.log(rev);
                         if (!error && response.statusCode == 200) {
                             resp.status(200).json({
                                 data: (rev.num_results === 0) ? [] : rev.results.map(v => {
