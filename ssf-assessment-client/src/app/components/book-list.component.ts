@@ -14,15 +14,19 @@ export class BookListComponent implements OnInit {
   offset = 0;
   terms = '';
 
+  // Added Code for Pagination Console Display only
+  top = 0;
+
   books: BooksResponse = null;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute
-      , private bookSvc: BookService) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute,
+              private bookSvc: BookService) { }
 
   ngOnInit() {
     const state = window.history.state;
-    if (!state['terms'])
+    if (!state['terms']) {
       return this.router.navigate(['/']);
+    }
 
     this.terms = state.terms;
     this.limit = state.limit || 10;
@@ -30,31 +34,69 @@ export class BookListComponent implements OnInit {
     const searchCriterial: SearchCriteria = {
       terms: this.terms,
       limit: this.limit
-    }
+    };
     this.bookSvc.getBooks(searchCriterial)
       .then(result => {
         this.books = result;
       }).catch(error => {
         const errorResponse = error as ErrorResponse;
         alert(`Status: ${errorResponse.status}\nMessage: ${errorResponse.message}`)
-      })
+      });
   }
 
   next() {
-    //TODO - for Task 4
+    if ((this.offset + this.limit) >= this.books.total) {
+      console.log('Error: No more books to get!');
+      alert('Error: No more books to get!');
+    } else {
+      this.offset += this.limit;
+      this.getBooks();
+    }
   }
 
   previous() {
-    //TODO - for Task 4
+    if ((this.offset - this.limit) < 0) {
+      console.log('Error: Already at first page!');
+      alert('Error: Already at first page!');
+    } else {
+      this.offset -= this.limit;
+      this.getBooks();
+    }
   }
 
-  bookDetails(book_id: string) {
-    //TODO
-    console.info('Book id: ', book_id);
+  bookDetails(bookId: string) {
+    // TODO
+    console.log('Book id: ', bookId);
   }
 
   back() {
     this.router.navigate(['/']);
+  }
+
+  // Added Code for pagination reuse
+  getBooks() {
+    const searchCriteria2: SearchCriteria = {
+      terms: this.terms,
+      limit: this.limit,
+      offset: this.offset
+    };
+    this.bookSvc.getBooks(searchCriteria2)
+      .then(result => {
+        this.books = result;
+        console.log((this.offset + 1 ) + ' to ' + this.getTop() + ' of ' + this.books.total + ' Books');
+      }).catch(error => {
+        const errorResponse = error as ErrorResponse;
+        alert(`Status: ${errorResponse.status}\nMessage: ${errorResponse.message}`);
+      });
+  }
+
+  // Added code for Console Pagination display purposes only
+  getTop() {
+    if ((this.offset + this.limit) >= this.books.total) {
+      return this.books.total;
+    } else {
+      return (this.offset + this.limit);
+    }
   }
 
 }
